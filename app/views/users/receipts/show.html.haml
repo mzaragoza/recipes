@@ -1,0 +1,97 @@
+- content_for :pagetitle do 
+  Show Receipts
+.mws-panel.grid_12
+  .mws-panel-header
+    = link_to 'Edit', edit_users_receipt_path(receipt), :class => 'btn btn-info pull-right'
+    %span
+      Receipt -
+      = receipt.truck.name.titleize + ' - ' if receipt.truck
+      = receipt.receipt_date
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      %li
+        %span.key
+          = t(:truck)
+        %span.val
+          %span.text-nowrap
+            = receipt.truck.name.titleize if receipt.truck
+      %li
+        %span.key
+          = t(:driver)
+        %span.val
+          %span.text-nowrap
+            = receipt.driver.name if receipt.driver
+      %li
+        %span.key
+          = t(:receipt_date)
+        %span.val
+          %span.text-nowrap= receipt.receipt_date
+      %li
+        %span.key
+          = t(:receipt_pdf)
+        %span.val
+          %span.text-nowrap
+            - unless receipt.receipt_pdf.blank?
+              = link_to t(:receipt_pdf), receipt.receipt_pdf_url, :target => '_blanl'
+            - else
+              %span{:style => 'color:#F00'}= t(:receipt_pdf)
+      %li
+        %span.key
+          = t(:gallons)
+        %span.val
+          %span.text-nowrap= receipt.fill_up_gallons
+      %li
+        %span.key
+          = t(:state)
+        %span.val
+          %span.text-nowrap= receipt.state
+      %li
+        %span.key
+          = t(:cost)
+        %span.val
+          %span.text-nowrap= number_to_currency(receipt.cost)
+      %li
+        %span.key
+          = t(:odometer)
+        %span.val
+          %span.text-nowrap= receipt.odometer
+      %li
+        %span.key
+          = t(:credit_card_number)
+        %span.val
+          %span.text-nowrap= receipt.credit_card_number.last(4)
+%a{:name => "notes"}
+.mws-panel.grid_12
+  .mws-panel-header
+    %span
+      Notes
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      - Comment.where(:commenter_type => 'receipt').where(:commenter_id => receipt.id).order('id DESC').each do |c|
+        %li
+          %span.key
+            - if c.user.photo_url
+              = image_tag c.user.photo.thumb, :alt => c.user.full_name, :width => 25
+            - else
+              = image_tag '/assets/example/profile.jpg', :alt => c.user.full_name, :width => 25
+            = c.user.name.titleize
+          %span.val
+            %span.text-nowrap
+              =raw c.note
+
+              .pull-right= c.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%D %r')
+        .clear
+.clear
+.row-fluid
+.mws-panel.grid_12
+  .mws-panel-header
+    %span Add Notes
+  .mws-panel-body
+    = form_for comment, :url => comments_path(:commenter_type => "receipt", :commenter_id => receipt.id) do |f|
+      .mws-form-row
+        %label.mws-form-label
+          Note
+        .mws-form-item
+          = f.text_area :note, :class => 'cleditor'
+        %br
+        = f.button :submit, :class => 'btn btn-info'

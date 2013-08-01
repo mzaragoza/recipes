@@ -1,0 +1,105 @@
+= simple_form_for([:users, truck], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:name)
+    .mws-form-item
+    = f.input :name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:trailer)
+    .mws-form-item
+    = f.association :trailer, collection: current_account.trailers.all(order: 'name'), prompt: "Choose a Trailer", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:annual_inspection_date)
+    .mws-form-item
+      = f.input :annual_inspection_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:annual_inspection_pdf)
+    .mws-form-item
+      = f.input :annual_inspection_pdf, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:insurance_pdf)
+    .mws-form-item
+      = f.input :insurance_pdf, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:registration_pdf)
+    .mws-form-item
+      = f.input :registration_pdf, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:engine)
+    .mws-form-item
+    = f.input :engine, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:sleeper_size)
+    .mws-form-item
+    = f.input :sleeper_size, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:transmission)
+    .mws-form-item
+    = f.input :transmission, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:suspension)
+    .mws-form-item
+    = f.input :suspension, :collection => suspension_list,  :as => :select, include_blank: false, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:front_axel_capacity)
+    .mws-form-item
+    = f.input :front_axel_capacity, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:rear_axle_capacity)
+    .mws-form-item
+    = f.input :rear_axle_capacity, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:rear_end_ratio)
+    .mws-form-item
+    = f.input :rear_end_ratio, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:wheelbase)
+    .mws-form-item
+    = f.input :wheelbase, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:wheels)
+    .mws-form-item
+    = f.input :wheels, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:tires)
+    .mws-form-item
+    = f.input :tires, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:odometer)
+    .mws-form-item
+    = f.input :odometer, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:vin)
+    .mws-form-item
+    = f.input :vehicle_identification_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:tag)
+    .mws-form-item
+    = f.input :vehicle_tag, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:truck_year)
+    .mws-form-item
+    = f.input :truck_year, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:manufacturer)
+    .mws-form-item
+    = f.input :manufacturer, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:truck_model)
+    .mws-form-item
+    = f.input :truck_model, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:engine_specs)
+    .mws-form-item
+    = f.input :engine_specs, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:engine_type)
+    .mws-form-item
+    = f.input :engine_type, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:photo)
+    .mws-form-item
+    = f.input :photo, :label => false
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

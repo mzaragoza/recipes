@@ -1,0 +1,62 @@
+- content_for :pagetitle do 
+  = account.name.titleize
+.row-fluid
+  .mws-panel.grid_12
+    .mws-panel-header
+      = link_to 'Edit', edit_users_account_path(account), :class => 'btn btn-info pull-right'
+      %span
+        Account - 
+        = account.name.titleize
+    .mws-panel-body.no-padding
+      %ul.mws-summary.clearfix
+        %li
+          %span.key
+            = t(:name)
+          %span.val
+            %span.text-nowrap= account.name.titleize
+        %li
+          %span.key
+            = t(:motor_carrier_number)
+          %span.val
+            %span.text-nowrap= account.motor_carrier_number
+        %li
+          %span.key
+            = t(:address)
+          %span.val
+            %span.text-nowrap
+              = account.address
+              = account.address2
+              = account.city
+              = account.state
+              = account.zip
+        %li
+          %span.key
+            = t(:phone)
+          %span.val
+            %span.text-nowrap= number_to_phone(account.phone)
+        %li
+          %span.key
+            = t(:website)
+          %span.val
+            %span.text-nowrap= account.website
+        %li
+          %span.key
+            = t(:show_support)
+          %span.val
+            %span.text-nowrap= account.show_support
+        %li
+          %span.key
+          %span.val
+            %h2= t(:subscription)
+        %li
+          %span.key
+            = t(:price)
+          %span.val
+            %span.text-nowrap
+              = number_to_currency(account.subscription.price)
+              = account.subscription.subscriptions_type
+        %li
+          %span.key
+            = t(:licenses)
+          %span.val
+            %span.text-nowrap= account.subscription.licenses

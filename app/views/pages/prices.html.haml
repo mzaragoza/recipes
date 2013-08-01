@@ -1,0 +1,72 @@
+- content_for :pagetitle do 
+  Prices
+/ Content
+.content
+  / Page Header
+  .page-header
+    .container
+      .sixteen.columns
+        %h1.page-title
+          Pricing Table
+          %span our awesome pricing plans
+        %ul.breadcrumb
+          %li
+            =link_to t(:home), root_path
+            %span.divider »
+          %li.active Pricing Table
+  / Start Content
+  .container.main
+    .sixteen.columns
+      .row
+        All Plans come with 30 days free trial
+      .row
+        .pricing-tables{ :class => "#{(plans.count + 1).to_words}" + '-tables' }
+          -plans.each do |p|
+            .pricing-table{:class => "#{('featured' if p.featured )}"}
+              - if p.featured
+                .ribbon
+                  .ribbon-label Featured
+              .table-header
+                .name= link_to p.name.titleize, new_user_registration_path(:plan => p.slug)
+              .table-price
+                .price
+                  %span>
+                  = number_to_currency(p.monthy_price)
+                .price-description
+                  per month
+              -#.table-price
+                .price
+                  %span>
+                  = number_to_currency(p.yearly_price)
+                .price-description
+                  per year
+              .table-features
+                %ul
+                  %li
+                    %strong Number of Trucks
+                    = p.licenses
+              .table-footer
+                = link_to t(:sign_up), new_user_registration_path(:plan => p.slug), :class => 'btn'
+          .pricing-table
+            .table-header
+              .name= t(:custom)
+            .table-price
+              .price
+                %span
+                You Tell Us
+              .price-description
+                per month
+            -#.table-price
+              .price
+                %span
+                You Tell Us
+              .price-description
+                per year
+            .table-features
+              %ul
+                %li
+                  %strong Number of Users
+                  Custom
+            .table-footer
+              = link_to t(:contact_us), contact_us_path, :class => 'btn'
+  

@@ -1,0 +1,202 @@
+= simple_form_for([:users, shipment], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:broker)
+    .mws-form-item
+    = f.association :broker, collection: current_account.brokers.all(order: 'name'), prompt: "Choose a Broker", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:truck)
+    .mws-form-item
+    = f.association :truck, collection: current_account.trucks.all(order: 'name'), prompt: "Choose a Truck", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:trailer)
+    .mws-form-item
+    = f.association :trailer, collection: current_account.trailers.all(order: 'name'), prompt: "Choose a Trailer", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:load_number)
+    .mws-form-item
+    = f.input :load_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:price)
+    .mws-form-item
+    = f.input :price, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:status)
+    .mws-form-item
+    = f.input :status, :collection => shipment_status_list,  :as => :select, include_blank: false, :label => false, prompt: "Select Shipment Status"
+  .mws-form-row
+    %label.mws-form-label= t(:miles)
+    .mws-form-item
+    = f.input :miles, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:weight)
+    .mws-form-item
+    = f.input :weight, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:packing)
+    .mws-form-item
+    = f.input :packing, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:seal_number)
+    .mws-form-item
+    = f.input :seal_number, :label => false
+  .mws-form-row
+    = f.input :double_triple_trailers
+    = f.input :passenger
+    = f.input :tank_vehicle
+    = f.input :hazardous_materials
+  .mws-form-row
+    %label.mws-form-label= t(:suspension)
+    .mws-form-item
+    = f.input :suspension, :collection => suspension_list,  :as => :select, include_blank: false, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:number_of_stops)
+    .mws-form-item
+    = f.input :number_of_stops, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:size_of_trailer)
+    .mws-form-item
+    = f.input :size_of_trailer, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:number_of_pallets)
+    .mws-form-item
+    = f.input :pallets_pisses, :label => false
+    %label.mws-form-label= t(:trailer_type)
+    .mws-form-item
+    = f.input :trailer_type, :collection => trailer_type_list,  :as => :select, include_blank: false, :label => false, prompt: "Choose a Trailer Type"
+  %h1= t(:pick_up)
+  .mws-form-row
+    %label.mws-form-label= t(:company)
+    .mws-form-item
+    = f.input :pick_up_company, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address)
+    .mws-form-item
+    = f.input :pick_up_location_address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address2)
+    .mws-form-item
+    = f.input :pick_up_location_address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:city)
+    .mws-form-item
+    = f.input :pick_up_location_city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :pick_up_location_state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:zip)
+    .mws-form-item
+    = f.input :pick_up_location_zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:phone)
+    .mws-form-item
+    = f.input :pick_up_location_phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:p_u_number)
+    .mws-form-item
+    = f.input :pick_up_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:date_)
+    .mws-form-item
+    = f.input :pick_up_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:earliest_time)
+    .mws-form-item
+    = f.input :pick_up_earlier_time, :label => false, :input_html => { :class => 'timepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:latest_time)
+    .mws-form-item
+    = f.input :pick_up_lateest_time, :label => false, :input_html => { :class => 'timepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:appointment)
+    .mws-form-item
+    = f.input :pick_up_appointment, :label => false, :input_html => { :class => 'timepicker'}
+  .mws-form-row
+  %h1= t(:delivery)
+  .mws-form-row
+    %label.mws-form-label= t(:company)
+    .mws-form-item
+    = f.input :delivery_company, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address)
+    .mws-form-item
+    = f.input :delivery_location_address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address2)
+    .mws-form-item
+    = f.input :delivery_location_address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:city)
+    .mws-form-item
+    = f.input :delivery_location_city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :delivery_location_state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:zip)
+    .mws-form-item
+    = f.input :delivery_location_zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:phone)
+    .mws-form-item
+    = f.input :delivery_location_phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:date_)
+    .mws-form-item
+    = f.input :deliver_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:delivery_number)
+    .mws-form-item
+    = f.input :delivery_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:earliest_time)
+    .mws-form-item
+    = f.input :delivery_earlier_time, :label => false, :input_html => { :class => 'timepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:latest_time)
+    .mws-form-item
+    = f.input :delivery_lateest_time, :label => false, :input_html => { :class => 'timepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:appointment)
+    .mws-form-item
+    = f.input :delivery_appointment, :label => false , :input_html => { :class => 'timepicker'}
+  %h1 Notes
+  .mws-form-row
+    %label.mws-form-label= t(:notes)
+    .mws-form-item
+    = f.input :notes, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:drivers_notes)
+    .mws-form-item
+    = f.input :drivers_notes, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:paid_status)
+    .mws-form-item
+    = f.input :paid_status, :collection => pay_status_list,  :as => :select, include_blank: false, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:paid_date)
+    .mws-form-item
+    = f.input :paid_date, :label => false, :input_html => { :class => 'datepicker'}
+  -#.mws-form-row
+    %label.mws-form-label= t(:load_conformation)
+    .mws-form-item
+    = f.input :load_conformation, :label => false
+  -#.mws-form-row
+    %label.mws-form-label= t(:equipment_type)
+    .mws-form-item
+    = f.input :equipment_type, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:load_conformation_pdf)
+    .mws-form-item
+    = f.input :load_conformation_pdf, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:bill_of_lading_pdf)
+    .mws-form-item
+    = f.input :bill_of_lading_pdf, :label => false
+
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

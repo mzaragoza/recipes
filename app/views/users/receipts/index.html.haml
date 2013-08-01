@@ -1,0 +1,36 @@
+- content_for :pagetitle do 
+  Receipts
+.grid_8
+  = link_to t(:add_receipt), new_users_receipt_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Receipts
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:truck)
+          %th= t(:driver)
+          %th= t(:receipt_date)
+          %th= t(:gallons)
+          %th= t(:state)
+          %th= t(:cost)
+          %th= t(:odometer)
+          %th= t(:credit_card_number)
+          %th
+      %tbody
+        - receipts.each do |r|
+          %tr
+            %td= link_to t(:show), users_receipt_path(r), :class => 'btn btn-small btn-info'
+            %td= r.truck.name if r.truck
+            %td= r.driver.full_name if r.driver
+            %td= r.receipt_date
+            %td= r.fill_up_gallons
+            %td= r.state
+            %td= number_to_currency(r.cost)
+            %td= r.odometer
+            %td= r.credit_card_number.last(4)
+            %td= link_to 'Edit', edit_users_receipt_path(r), :class => 'btn btn-small btn-info'
+

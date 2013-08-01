@@ -1,0 +1,85 @@
+= simple_form_for([:users, repair], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:truck)
+    .mws-form-item
+    = f.association :truck, collection: current_account.trucks.all(order: 'name'), prompt: "Choose a Truck", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:trailer)
+    .mws-form-item
+    = f.association :trailer, collection: current_account.trailers.all(order: 'name'), prompt: "Choose a Trailer", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_name)
+    .mws-form-item
+    = f.input :service_provider_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_address)
+    .mws-form-item
+    = f.input :service_provider_address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_address2)
+    .mws-form-item
+    = f.input :service_provider_address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_city)
+    .mws-form-item
+    = f.input :service_provider_city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_state)
+    .mws-form-item
+    = f.input :service_provider_state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_zip)
+    .mws-form-item
+    = f.input :service_provider_zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_fax)
+    .mws-form-item
+    = f.input :service_provider_fax, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:service_provider_phone)
+    .mws-form-item
+    = f.input :service_provider_phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:delivery_date)
+    .mws-form-item
+    = f.input :delivery_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:return_date)
+    .mws-form-item
+    = f.input :return_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:payment_info)
+    .mws-form-item
+    = f.input :payment_info, :collection => payment_method_list,  :as => :select, include_blank: false, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:invoice_date)
+    .mws-form-item
+    = f.input :invoice_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:invoice_number)
+    .mws-form-item
+    = f.input :invoice_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:details)
+    .mws-form-item
+    = f.input :details, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:labor)
+    .mws-form-item
+    = f.input :labor, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:parts)
+    .mws-form-item
+    = f.input :parts, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:tax)
+    .mws-form-item
+    = f.input :tax, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:invoice)
+    .mws-form-item
+    = f.input :invoice, :label => false
+
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'

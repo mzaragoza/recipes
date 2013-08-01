@@ -1,0 +1,113 @@
+= simple_form_for([:users, driver], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:first_name)
+    .mws-form-item
+    = f.input :first_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:last_name)
+    .mws-form-item
+    = f.input :last_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:email)
+    .mws-form-item
+    = f.input :email, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:truck)
+    .mws-form-item
+    = f.association :truck, collection: current_account.trucks.all(order: 'name'), prompt: "Choose a Truck", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address)
+    .mws-form-item
+    = f.input :address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address2)
+    .mws-form-item
+    = f.input :address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:city)
+    .mws-form-item
+    = f.input :city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:zip)
+    .mws-form-item
+    = f.input :zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:cell)
+    .mws-form-item
+    = f.input :cell, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:ssn)
+    .mws-form-item
+    = f.input :ssn, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:drivers_license)
+    .mws-form-item
+    = f.input :drivers_license, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:pay_rate)
+    .mws-form-item
+    = f.input :pay_rate, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:hire_date)
+    .mws-form-item
+    = f.input :hire_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:release_date)
+    .mws-form-item
+    = f.input :release_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:active)
+    .mws-form-item
+    = f.input :active, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:bank_name)
+    .mws-form-item
+    = f.input :bank_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:bank_account_number)
+    .mws-form-item
+    = f.input :bank_account_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:bank_routing_number)
+    .mws-form-item
+    = f.input :bank_rauting_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:double_triple_trailers)
+    .mws-form-item
+    = f.input :double_triple_trailers, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:passenger)
+    .mws-form-item
+    = f.input :passenger, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:tank_vehicle)
+    .mws-form-item
+    = f.input :tank_vehicle, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:hazardous_materials)
+    .mws-form-item
+    = f.input :hazardous_materials, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:combination_of_tank_vehicle_and_hazardous_materials)
+    .mws-form-item
+    = f.input :combination_of_tank_vehicle_and_hazardous_materials, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:photo)
+    .mws-form-item
+    = f.input :photo, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:drivers_license_photo)
+    .mws-form-item
+    = f.input :drivers_license_photo, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:medical_long_form_pdf)
+    .mws-form-item
+    = f.input :medical_long_form_pdf, :label => false
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

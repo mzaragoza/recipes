@@ -1,0 +1,276 @@
+- content_for :pagetitle do 
+  Shipment
+  = shipment.broker.name.titleize if shipment.broker
+  = shipment.load_number
+  = shipment.truck.name.titleize if shipment.truck
+  = shipment.pick_up_date
+
+.mws-panel.grid_12
+  .mws-panel-header
+    = link_to 'Delete Shipment', users_shipments_delete_path(shipment), :confirm => 'Are you sure?' , :class => 'btn pull-right btn-danger'
+    = link_to 'Edit', edit_users_shipment_path(shipment), :class => 'btn btn-info pull-right'
+    - if s.invoice
+      = link_to 'Invoice', edit_users_invoice_path(shipment.invoice), :class => 'btn btn-info pull-right'
+    - else
+      = link_to 'Invoice', new_users_invoice_path(:shipment => shipment), :class => 'btn btn-info pull-right'
+    %span
+      Shipment -
+      = shipment.broker.name.titleize if shipment.broker
+      = shipment.load_number
+      = shipment.truck.name.titleize if shipment.truck
+      = shipment.pick_up_date
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      %li
+        %span.key
+          = t(:load_conformation_pdf)
+        %span.val
+          %span.text-nowrap
+            - unless shipment.load_conformation_pdf.blank?
+              = link_to t(:load_conformation_pdf), shipment.load_conformation_pdf_url, :target => '_blanl'
+            - else
+              %span{:style => 'color:#F00'}= t(:load_conformation)
+      %li
+        %span.key
+          = t(:bill_of_lading_pdf)
+        %span.val
+          %span.text-nowrap
+            - unless shipment.bill_of_lading_pdf.blank?
+              = link_to t(:bill_of_lading_pdf), shipment.bill_of_lading_pdf_url, :target => '_blanl'
+            - else
+              %span{:style => 'color:#F00'}= t(:bill_of_lading_pdf)
+      %li
+        %span.key
+          = t(:broker)
+        %span.val
+          %span.text-nowrap
+            = link_to shipment.broker.name, users_broker_path(shipment.broker) if shipment.broker
+      %li
+        %span.key
+          = t(:truck)
+        %span.val
+          %span.text-nowrap
+            = link_to shipment.truck.name, users_truck_path(shipment.truck) if shipment.truck
+      %li
+        %span.key
+          = t(:trailer)
+        %span.val
+          %span.text-nowrap
+            = link_to shipment.trailer.name, users_trailer_path(shipment.trailer) if shipment.trailer
+      %li
+        %span.key
+          = t(:load_number)
+        %span.val
+          %span.text-nowrap= shipment.load_number
+      %li
+        %span.key
+          = t(:price)
+        %span.val
+          %span.text-nowrap= number_to_currency(shipment.price)
+      %li
+        %span.key
+          = t(:miles)
+        %span.val
+          %span.text-nowrap= shipment.miles
+      %li
+        %span.key
+          = t(:pick_up_location_address)
+        %span.val
+          %span.text-nowrap
+            - address = shipment.pick_up_location_address + ' ' + shipment.pick_up_location_address2 + ' ' + shipment.pick_up_location_city  + ' ' + shipment.pick_up_location_state  + ' ' + shipment.pick_up_location_zip
+            = address
+            = link_to 'https://maps.google.com/maps?q='+ address  +'&t=m&z=17', :target => '_blank' do
+              %i.icol32-map2
+      %li
+        %span.key
+          = t(:pick_up_location_phone)
+        %span.val
+          %span.text-nowrap= number_to_phone(shipment.pick_up_location_phone)
+      %li
+        %span.key
+          = t(:delivery_location_address)
+        %span.val
+          %span.text-nowrap
+            - address = shipment.delivery_location_address + ' ' + shipment.delivery_location_address2 + ' ' + shipment.delivery_location_city  + ' ' + shipment.delivery_location_state  + ' ' + shipment.delivery_location_zip
+            = address
+            = link_to 'https://maps.google.com/maps?q='+ address  +'&t=m&z=17', :target => '_blank' do
+              %i.icol32-map2
+      %li
+        %span.key
+          = t(:delivery_location_phone)
+        %span.val
+          %span.text-nowrap= number_to_phone(shipment.delivery_location_phone)
+      %li
+        %span.key
+          = t(:number_of_stops)
+        %span.val
+          %span.text-nowrap= shipment.number_of_stops
+      %li
+        %span.key
+          = t(:notes)
+        %span.val
+          %span.text-nowrap= raw shipment.notes.gsub("\r\n" ,'<br>')
+      %li
+        %span.key
+          = t(:pick_up_date)
+        %span.val
+          %span.text-nowrap= shipment.pick_up_date
+      %li
+        %span.key
+          = t(:deliver_date)
+        %span.val
+          %span.text-nowrap= shipment.deliver_date
+      %li
+        %span.key
+          = t(:status)
+        %span.val
+          %span.text-nowrap= shipment.status
+      %li
+        %span.key
+          = t(:weight)
+        %span.val
+          %span.text-nowrap= shipment.weight
+      %li
+        %span.key
+          = t(:drivers_notes)
+        %span.val
+          %span.text-nowrap= raw shipment.drivers_notes.gsub("\r\n" ,'<br>')
+      %li
+        %span.key
+          = t(:packing)
+        %span.val
+          %span.text-nowrap= shipment.packing
+      %li
+        %span.key
+          = t(:seal_number)
+        %span.val
+          %span.text-nowrap= shipment.seal_number
+      %li
+        %span.key
+          = t(:license)
+        %span.val
+          %span.text-nowrap
+            - if shipment.double_triple_trailers
+              = t(:double_triple_trailers)
+            - if shipment.passenger
+              = t(:passenger)
+            - if shipment.tank_vehicle
+              = t(:tank_vehicle)
+            - if shipment.hazardous_materials
+              = t(:hazardous_materials)
+      %li
+        %span.key
+          = t(:suspension)
+        %span.val
+          %span.text-nowrap= shipment.suspension
+      -#%li
+        %span.key
+          = t(:paid_status)
+        %span.val
+          %span.text-nowrap= shipment.paid_status
+      -#%li
+        %span.key
+          = t(:paid_date)
+        %span.val
+          %span.text-nowrap= shipment.paid_date
+      %li
+        %span.key
+          = t(:load_conformation)
+        %span.val
+          %span.text-nowrap= shipment.load_conformation
+      %li
+        %span.key
+          = t(:equipment_type)
+        %span.val
+          %span.text-nowrap= shipment.equipment_type
+      %li
+        %span.key
+          = t(:size_of_trailer)
+        %span.val
+          %span.text-nowrap= shipment.size_of_trailer
+      %li
+        %span.key
+          = t(:number_of_pallets)
+        %span.val
+          %span.text-nowrap= shipment.pallets_pisses
+      %li
+        %span.key
+          = t(:pick_up_number)
+        %span.val
+          %span.text-nowrap= shipment.pick_up_number
+      %li
+        %span.key
+          = t(:delivery_number)
+        %span.val
+          %span.text-nowrap= shipment.delivery_number
+      %li
+        %span.key
+          = t(:pick_up_earlier_time)
+        %span.val
+          %span.text-nowrap= shipment.pick_up_earlier_time
+      %li
+        %span.key
+          = t(:pick_up_latest_time)
+        %span.val
+          %span.text-nowrap= shipment.pick_up_lateest_time
+      %li
+        %span.key
+          = t(:pick_up_appointment)
+        %span.val
+          %span.text-nowrap= shipment.pick_up_appointment
+      %li
+        %span.key
+          = t(:delivery_earlier_time)
+        %span.val
+          %span.text-nowrap= shipment.delivery_earlier_time
+      %li
+        %span.key
+          = t(:delivery_latest_time)
+        %span.val
+          %span.text-nowrap= shipment.delivery_lateest_time
+      %li
+        %span.key
+          = t(:trailer_type)
+        %span.val
+          %span.text-nowrap= shipment.trailer_type
+      %li
+        %span.key
+          = t(:delivery_appointment)
+        %span.val
+          %span.text-nowrap= shipment.delivery_appointment
+
+%a{:name => "notes"}
+.mws-panel.grid_12
+  .mws-panel-header
+    %span
+      Notes
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      - Comment.where(:commenter_type => 'shipment').where(:commenter_id => shipment.id).order('id DESC').each do |c|
+        %li
+          %span.key
+            - if c.user.photo_url
+              = image_tag c.user.photo.thumb, :alt => c.user.full_name, :width => 25
+            - else
+              = image_tag '/assets/example/profile.jpg', :alt => c.user.full_name, :width => 25
+            = c.user.name.titleize
+          %span.val
+            %span.text-nowrap
+              =raw c.note
+
+              .pull-right= c.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%D %r')
+        .clear
+.clear
+.row-fluid
+.mws-panel.grid_12
+  .mws-panel-header
+    %span Add Notes
+  .mws-panel-body
+    = form_for comment, :url => comments_path(:commenter_type => "shipment", :commenter_id => shipment.id) do |f|
+      .mws-form-row
+        %label.mws-form-label
+          Note
+        .mws-form-item
+          = f.text_area :note, :class => 'cleditor'
+        %br
+        = f.button :submit, :class => 'btn btn-info'

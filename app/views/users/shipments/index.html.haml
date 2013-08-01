@@ -1,0 +1,54 @@
+- content_for :pagetitle do 
+  Shipments
+.grid_8
+  = link_to t(:add_shipment), new_users_shipment_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Shipments
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:broker)
+          %th= t(:truck)
+          %th= t(:trailer)
+          %th= t(:pick_up_date)
+          %th= t(:deliver_date)
+          %th= t(:price)
+          %th= t(:load_conformation)
+          %th= t(:load_number)
+          %th= t(:status)
+          %th
+      %tbody
+        - shipments.each do |s|
+          %tr
+            %td= link_to t(:show), users_shipment_path(s), :class => 'btn btn-small btn-info'
+            %td
+              = link_to s.broker.name, users_broker_path(s.broker) if s.broker
+            %td
+              = link_to s.truck.name, users_truck_path(s.truck) if s.truck
+            %td
+              = link_to s.trailer.name, users_trailer_path(s.trailer) if s.trailer
+            %td= s.pick_up_date
+            %td= s.deliver_date
+            %td= number_to_currency(s.price)
+            %td
+              - unless s.load_conformation_pdf.blank?
+                = link_to 'load_conformation_pdf', s.load_conformation_pdf_url, :target => '_blanl'
+              - else
+                %span{:style => 'color:#F00'}= t(:load_conformation)
+            %td= s.load_number
+            %td= s.status
+
+            %td
+              = link_to 'Edit', edit_users_shipment_path(s), :class => 'btn btn-small btn-info'
+              - if s.invoice
+                = link_to 'Invoice', users_invoice_path(s.invoice), :class => 'btn btn-small btn-info'
+              - else
+                = link_to 'Invoice', new_users_invoice_path(:shipment => s), :class => 'btn btn-small btn-warning'
+              = link_to 'Delete Shipment', users_shipments_delete_path(s), :confirm => 'Are you sure?' , :class => 'btn btn-small btn-danger'
+
+  = link_to t(:has_not_invoice),'#', :class => 'btn btn-warning'
+  = link_to t(:has_invoice),'#', :class => 'btn btn-info'

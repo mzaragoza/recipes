@@ -1,0 +1,51 @@
+= simple_form_for([:users, account], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:name)
+    .mws-form-item
+    = f.input :name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:motor_carrier_number)
+    .mws-form-item
+    = f.input :motor_carrier_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address)
+    .mws-form-item
+    = f.input :address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address2)
+    .mws-form-item
+    = f.input :address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:city)
+    .mws-form-item
+    = f.input :city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:zip)
+    .mws-form-item
+    = f.input :zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:phone)
+    .mws-form-item
+    = f.input :phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:website)
+    .mws-form-item
+    = f.input :website, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:show_support)
+    .mws-form-item
+    .btn.btn-small.pull-left{"data-content" => "By Showing your support your company logo may be used in our public pages as one of our clients.", "data-original-title" => t(:show_support), "data-placement" => "top", "data-trigger" => "hover", :rel => "popover"} ? 
+    = f.input :show_support, :label => false
+    %br
+  .mws-form-row
+    %label.mws-form-label= t(:photo)
+    .mws-form-item
+    = f.input :photo, :label => false
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

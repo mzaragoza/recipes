@@ -1,0 +1,40 @@
+- content_for :pagetitle do 
+  Repairs
+.grid_8
+  = link_to t(:add_repair), new_users_repair_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Repairs
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:service_provider_name)
+          %th= t(:truck)
+          %th= t(:trailer)
+          %th= t(:city)
+          %th= t(:state)
+          %th= t(:phone)
+          %th= t(:invoice_date)
+          %th= t(:delivery_date)
+          %th= t(:return_date)
+          %th= t(:total)
+          %th
+      %tbody
+        - repairs.each do |r|
+          %tr
+            %td= link_to t(:show), users_repair_path(r), :class => 'btn btn-small btn-info'
+            %td= link_to r.service_provider_name, users_repair_path(r)
+            %td= link_to r.truck.name, users_truck_path(r.truck) if r.truck
+            %td= link_to r.trailer.name, users_trailer_path(r.trailer) if  r.trailer
+            %td= r.service_provider_city
+            %td= r.service_provider_state
+            %td= number_to_phone(r.service_provider_phone)
+            %td= r.invoice_date
+            %td= r.delivery_date
+            %td= r.return_date
+            %td= number_to_currency(r.total)
+            %td= link_to 'Edit', edit_users_repair_path(r), :class => 'btn btn-small btn-info'
+

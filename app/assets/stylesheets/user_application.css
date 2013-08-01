@@ -1,0 +1,58 @@
+/*
+  *= require plugins/colorpicker/colorpicker
+  *= require bootstrap/css/bootstrap.min
+  *= require css/fonts/ptsans/stylesheet
+  *= require css/fonts/icomoon/style
+
+
+  *= require css/shared
+  *= require css/core
+  *= require css/panels
+  *= require css/table
+  *= require css/gallery
+  *= require css/button
+  *= require css/statistic
+  *= require css/form
+  *= require css/error
+  *= require css/tweaks
+  *= require css/plugins
+  *= require css/lt-ie9
+
+  *= require css/mws-style
+  *= require css/icons/icol16
+  *= require css/icons/icol32
+  *= require css/demo
+
+
+  *= require jui/css/jquery.ui.core
+  *= require jui/css/jquery.ui.accordion
+  *= require jui/css/jquery.ui.autocomplete
+  *= require jui/css/jquery.ui.button
+  *= require jui/css/jquery.ui.datepicker
+  *= require jui/css/jquery.ui.dialog
+  *= require jui/css/jquery.ui.menu
+  *= require jui/css/jquery.ui.progressbar
+  *= require jui/css/jquery.ui.resizable
+  *= require jui/css/jquery.ui.selectable
+  *= require jui/css/jquery.ui.slider
+  *= require jui/css/jquery.ui.spinner
+  *= require jui/css/jquery.ui.tabs
+  *= require jui/css/jquery.ui.base
+
+
+  *= require jui/css/jquery.ui.theme
+
+
+
+  *= require jui/css/jquery.ui.timepicker
+  *= require jui/css/jquery.ui.all
+  *= require jui/jquery-ui.custom
+  *= require css/mws-theme
+  *= require css/themer
+  *=# require plugins/cleditor/jquery.cleditor
+  *= require my_css
+  *= require_self
+ */
+
+
+/assets

@@ -1,0 +1,43 @@
+- content_for :pagetitle do 
+  Drivers
+.grid_8
+  = link_to t(:add_driver), new_users_driver_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Drivers
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th=t(:name)
+          %th=t(:truck)
+          %th=t(:trailer)
+          %th=t(:cell)
+          %th=t(:email)
+          %th=t(:active)
+          %th
+          %th
+      %tbody
+        - drivers.each do |d|
+          %tr
+            %td= link_to t(:show), users_driver_path(d), :class => 'btn btn-small btn-info'
+            %td= link_to d.full_name.titleize, users_driver_path(d)
+            %td
+              = link_to d.truck.name.titleize, users_truck_path(d.truck) if d.truck
+            %td
+              = link_to d.truck.trailer.name.titleize, users_trailer_path(d.truck.trailer) if d.truck and d.truck.trailer
+            %td= number_to_phone(d.cell)
+            %td= mail_to d.email
+            %td
+              -if d.active
+                .badge.badge-success= t(:active)
+              - else
+                .badge.badge-important= t(:inactive)
+            %td
+              - if d.photo?
+                = image_tag d.photo.thumb.url, :width => '50'
+              - else
+                = image_tag 'myicons/driver-icon-small.png', :width => '50'
+            %td= link_to 'Edit', edit_users_driver_path(d), :class => 'btn btn-small btn-info'

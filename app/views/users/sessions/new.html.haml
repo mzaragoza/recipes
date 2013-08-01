@@ -1,0 +1,24 @@
+#mws-login-wrapper
+  #mws-login
+    %h1 Login
+    .mws-login-lock
+      = image_tag 'myicons/lock-icon.png'
+    #mws-login-form
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        .mws-form-row
+          .mws-form-item
+            = f.input :email, input_html: { class: 'mws-login-username requiredi login_field'} , :placeholder => "Email", :label => false
+        .mws-form-row
+          .mws-form-item
+            = f.input :password, input_html: { class: 'mws-login-password required login_field'}, :placeholder => "Password", :label => false
+        #mws-login-remember.mws-form-row.mws-inset
+          %ul.mws-form-list.inline
+            %li
+              = f.input :remember_me, :as => :boolean, :label => false if devise_mapping.rememberable?
+              %label{:for => "remember"} Remember me
+              = link_to t(:home), root_path, :class => 'btn btn-primary btn-small pull-right'
+        .mws-form-row
+          = f.button :submit, "Login", :class => 'btn btn-success mws-login-button'
+      %strong{:style => 'color:#ffffff'} 
+        Call:
+        = t(:tollfree)

@@ -1,0 +1,39 @@
+- content_for :pagetitle do 
+  Trucks
+.grid_8
+  = link_to t(:add_truck), new_users_truck_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Trucks
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:name)
+          %th= t(:trailer)
+          %th= t(:driver)
+          %th= t(:tag)
+          %th= t(:vin)
+          %th= t(:last_annual_inspection_date)
+          %th
+          %th
+      %tbody
+        - trucks.each do |t|
+          %tr
+            %td= link_to t(:show), users_truck_path(t), :class => 'btn btn-small btn-info'
+            %td= link_to t.name.titleize, users_truck_path(t)
+            %td
+              = link_to t.trailer.name.titleize, users_trailer_path(t.trailer) if t.trailer
+            %td
+              = link_to t.driver.full_name.titleize, users_driver_path(t.driver) if t.driver
+            %td= t.vehicle_tag
+            %td= t.vehicle_identification_number
+            %td= t.annual_inspection_date
+            %td
+              - unless t.photo.blank?
+                = image_tag t.photo.large_thumb.url, :width => '50'
+              - else
+                = image_tag 'myicons/truck-icon-small.png', :width => '50'
+            %td= link_to 'Edit', edit_users_truck_path(t), :class => 'btn btn-small btn-info'

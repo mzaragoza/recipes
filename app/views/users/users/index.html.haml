@@ -1,0 +1,47 @@
+- content_for :pagetitle do 
+  Users
+
+.grid_8
+  = link_to t(:add_user), new_users_user_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Users
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:name)
+          %th= t(:email)
+          %th= t(:phone)
+          %th= t(:is_owner)
+          %th= t(:active)
+          %th
+          %th
+      %tbody
+        - users.each do |u|
+          %tr
+            %td= link_to t(:show), users_user_path(u), :class => 'btn btn-small btn-info'
+            %td= link_to u.full_name.titleize, users_user_path(u)
+            %td= mail_to u.email.downcase
+            %td= number_to_phone(u.phone)
+            %td
+              -if u.is_owner
+                .badge.badge-success Owner
+              -else
+                .badge.badge-important User
+            %td
+              -if u.active
+                .badge.badge-success Active
+              -else
+                .badge.badge-important Inactive
+            %td
+              - if u.photo?
+                = image_tag u.photo.thumb.url, :width => '50'
+              - else
+                = image_tag 'myicons/user-icon-small.png', :width => '50'
+            %td
+              = link_to 'Edit', edit_users_user_path(u), :class => 'btn btn-small btn-info'
+
+

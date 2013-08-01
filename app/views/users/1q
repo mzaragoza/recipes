@@ -1,0 +1,156 @@
+- content_for :pagetitle do
+  Driver
+  = driver.full_name.titleize
+.row-fluid
+  .mws-panel.grid_2.pull-right
+    - if driver.photo?
+      = image_tag driver.photo.large_thumb, :width => '400', :alt => driver.name, :class => 'img-polaroid'
+    - else
+      = image_tag 'myicons/driver-icon.png', :width => '400', :class => 'img-polaroid'
+    - if driver.drivers_license_photo?
+      = image_tag driver.drivers_license_photo.large_thumb, :width => '400', :alt => driver.name, :class => 'img-polaroid'
+    - else
+      = image_tag 'myicons/drivers-license-icon.png', :width => '400', :class => 'img-polaroid'
+  .mws-panel.grid_6
+    .mws-panel-header
+      = link_to 'Edit', edit_users_driver_path(driver), :class => 'btn btn-info pull-right'
+      %span
+        Driver -
+        = driver.full_name.titleize
+    .mws-panel-body.no-padding
+      %ul.mws-summary.clearfix
+        %li
+          %span.key
+            = t(:name)
+          %span.val
+            %span.text-nowrap= driver.full_name
+        %li
+          %span.key
+            = t(:medical_long_form_pdf)
+          %span.val
+            %span.text-nowrap
+              - unless driver.medical_long_form_pdf.blank?
+                = link_to t(:annual_inspection_pdf), driver.medical_long_form_pdf_url, :target => '_blanl'
+              - else
+                %span{:style => 'color:#F00'}= t(:medical_long_form_pdf)
+        %li
+          %span.key
+            = t(:truck)
+          %span.val
+            %span.text-nowrap
+              = link_to driver.truck.name, users_truck_path(driver.truck) if driver.truck
+        %li
+          %span.key
+            = t(:trailer)
+          %span.val
+            %span.text-nowrap
+              = link_to driver.truck.trailer.name, users_trailer_path(driver.truck.trailer) if driver.truck and driver.truck.trailer
+        %li
+          %span.key
+            = t(:address)
+          %span.val
+            %span.text-nowrap
+              - address = driver.address + ' ' + driver.address2 + ' ' + driver.city  + ' ' + driver.state  + ' ' + driver.zip
+              = address
+              = link_to 'https://maps.google.com/maps?q='+ address  +'&t=m&z=17', :target => '_blank' do
+                %i.icol32-map2
+        %li
+          %span.key
+            = t(:email)
+          %span.val
+            %span.text-nowrap
+              = mail_to driver.email
+        %li
+          %span.key
+            = t(:cell)
+          %span.val
+            %span.text-nowrap= number_to_phone(driver.cell)
+        %li
+          %span.key
+            = t(:ssn)
+          %span.val
+            %span.text-nowrap= driver.ssn
+        %li
+          %span.key
+            = t(:drivers_license)
+          %span.val
+            %span.text-nowrap= driver.drivers_license
+        %li
+          %span.key
+            = t(:pay_rate)
+          %span.val
+            %span.text-nowrap= driver.pay_rate
+        %li
+          %span.key
+            = t(:hire_date)
+          %span.val
+            %span.text-nowrap= driver.hire_date
+        %li
+          %span.key
+            = t(:active)
+          %span.val
+            %span.text-nowrap= driver.active
+        %li
+          %span.key
+            = t(:bank_name)
+          %span.val
+            %span.text-nowrap= driver.bank_name
+        %li
+          %span.key
+            = t(:bank_account_number)
+          %span.val
+            %span.text-nowrap= driver.bank_account_number
+        %li
+          %span.key
+            = t(:bank_routing_number)
+          %span.val
+            %span.text-nowrap= driver.bank_rauting_number
+        %li
+          %span.key
+            = t(:endorsements)
+          %span.val
+            %span.text-nowrap
+              - if driver.double_triple_trailers
+                .badge.badge-success= t(:double_triple_trailers)
+              - if driver.passenger
+                .badge.badge-success= t(:passenger)
+              - if driver.tank_vehicle
+                .badge.badge-success= t(:tank_vehicle)
+              - if driver.hazardous_materials
+                .badge.badge-success= t(:hazardous_materials)
+              - if driver.combination_of_tank_vehicle_and_hazardous_materials
+                .badge.badge-success= t(:combination_of_tank_vehicle_and_hazardous_materials)
+  .mws-panel.grid_6
+    .mws-panel-header
+      %span
+        Notes
+    .mws-panel-body.no-padding
+      %ul.mws-summary.clearfix
+        - Comment.where(:commenter_type => 'driver').where(:commenter_id => driver.id).order('id DESC').each do |c|
+          %li
+            %span.key
+              - if c.user.photo_url
+                = image_tag c.user.photo.thumb, :alt => c.user.full_name, :width => 25
+              - else
+                = image_tag '/assets/example/profile.jpg', :alt => c.user.full_name, :width => 25
+              = c.user.name.titleize
+            %span.val
+              %span.text-nowrap
+                =raw c.note
+
+                .pull-right= c.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%D %r')
+          .clear
+.clear
+.row-fluid
+.mws-panel.grid_12
+  .mws-panel-header
+    %span Add Notes
+  .mws-panel-body
+    = form_for comment, :url => comments_path(:commenter_type => "driver", :commenter_id => driver.id) do |f|
+      .mws-form-row
+        %label.mws-form-label
+          Note
+        .mws-form-item
+          = f.text_area :note, :class => 'cleditor'
+        %br
+        = f.button :submit, :class => 'btn btn-info'

@@ -1,0 +1,185 @@
+- content_for :pagetitle do 
+  Truck
+  = truck.name.titleize
+.row-fluid
+  .mws-panel.grid_2.pull-right
+    - unless truck.photo.blank?
+      = image_tag truck.photo.large_thumb, :width => '500', :class => 'img-polaroid'
+    - else
+      = image_tag 'myicons/truck-icon.png', :width => '500', :class => 'img-polaroid'
+  .mws-panel.grid_6
+    .mws-panel-header
+      = link_to 'Edit', edit_users_truck_path(truck), :class => 'btn btn-info pull-right'
+      %span
+        Truck - 
+        = truck.name.titleize
+    .mws-panel-body.no-padding
+      %ul.mws-summary.clearfix
+        %li
+          %span.key
+            = t(:name)
+          %span.val
+            %span.text-nowrap= truck.name
+        %li
+          %span.key
+            = t(:trailer)
+          %span.val
+            %span.text-nowrap= truck.trailer.name if truck.trailer
+        %li
+          %span.key
+            = t(:annual_inspection_date)
+          %span.val
+            %span.text-nowrap= truck.annual_inspection_date
+        %li
+          %span.key
+            = t(:annual_inspection_pdf)
+          %span.val
+            %span.text-nowrap
+              - unless truck.annual_inspection_pdf.blank?
+                = link_to t(:annual_inspection_pdf), truck.annual_inspection_pdf_url, :target => '_blanl'
+              - else
+                %span{:style => 'color:#F00'}= t(:annual_inspection_pdf)
+        %li
+          %span.key
+            = t(:insurance_pdf)
+          %span.val
+            %span.text-nowrap
+              - unless truck.insurance_pdf.blank?
+                = link_to t(:insurance_pdf), truck.insurance_pdf_url, :target => '_blanl'
+              - else
+                %span{:style => 'color:#F00'}= t(:insurance_pdf)
+        %li
+          %span.key
+            = t(:registration_pdf)
+          %span.val
+            %span.text-nowrap
+              - unless truck.registration_pdf.blank?
+                = link_to t(:annual_inspection_pdf), truck.registration_pdf_url, :target => '_blanl'
+              - else
+                %span{:style => 'color:#F00'}= t(:registration_pdf)
+        %li
+          %span.key
+            = t(:engine)
+          %span.val
+            %span.text-nowrap= truck.engine
+        %li
+          %span.key
+            = t(:sleeper_size)
+          %span.val
+            %span.text-nowrap= truck.sleeper_size
+        %li
+          %span.key
+            = t(:transmission)
+          %span.val
+            %span.text-nowrap= truck.transmission
+        %li
+          %span.key
+            = t(:suspension)
+          %span.val
+            %span.text-nowrap= truck.suspension
+        %li
+          %span.key
+            = t(:front_axel_capacity)
+          %span.val
+            %span.text-nowrap= truck.front_axel_capacity
+        %li
+          %span.key
+            = t(:rear_axle_capacity)
+          %span.val
+            %span.text-nowrap= truck.rear_axle_capacity
+        %li
+          %span.key
+            = t(:rear_end_ratio)
+          %span.val
+            %span.text-nowrap= truck.rear_end_ratio
+        %li
+          %span.key
+            = t(:wheelbase)
+          %span.val
+            %span.text-nowrap= truck.wheelbase
+        -#%li
+          %span.key
+            = t(:wheels)
+          %span.val
+            %span.text-nowrap= truck.wheels
+        %li
+          %span.key
+            = t(:tires)
+          %span.val
+            %span.text-nowrap= truck.tires
+        -#%li
+          %span.key
+            = t(:odometer)
+          %span.val
+            %span.text-nowrap= truck.odometer
+        %li
+          %span.key
+            = t(:vin)
+          %span.val
+            %span.text-nowrap= truck.vehicle_identification_number
+        %li
+          %span.key
+            = t(:tag)
+          %span.val
+            %span.text-nowrap= truck.vehicle_tag
+        %li
+          %span.key
+            = t(:truck_year)
+          %span.val
+            %span.text-nowrap= truck.truck_year
+        %li
+          %span.key
+            = t(:manufacturer)
+          %span.val
+            %span.text-nowrap= truck.manufacturer
+        %li
+          %span.key
+            = t(:truck_model)
+          %span.val
+            %span.text-nowrap= truck.truck_model
+        -#%li
+          %span.key
+            = t(:engine_specs)
+          %span.val
+            %span.text-nowrap= truck.engine_specs
+        -#%li
+          %span.key
+            = t(:engine_type)
+          %span.val
+            %span.text-nowrap= truck.engine_type
+
+%a{:name => "notes"}
+.mws-panel.grid_6
+  .mws-panel-header
+    %span
+      Notes
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      - Comment.where(:commenter_type => 'truck').where(:commenter_id => truck.id).order('id DESC').each do |c|
+        %li
+          %span.key
+            - if c.user.photo_url
+              = image_tag c.user.photo.thumb, :alt => c.user.full_name, :width => 25
+            - else
+              = image_tag '/assets/example/profile.jpg', :alt => c.user.full_name, :width => 25
+            = c.user.name.titleize
+          %span.val
+            %span.text-nowrap
+              =raw c.note
+
+              .pull-right= c.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%D %r')
+        .clear
+.clear
+.row-fluid
+.mws-panel.grid_12
+  .mws-panel-header
+    %span Add Notes
+  .mws-panel-body
+    = form_for comment, :url => comments_path(:commenter_type => "truck", :commenter_id => truck.id) do |f|
+      .mws-form-row
+        %label.mws-form-label
+          Note
+        .mws-form-item
+          = f.text_area :note, :class => 'cleditor'
+        %br
+        = f.button :submit, :class => 'btn btn-info'

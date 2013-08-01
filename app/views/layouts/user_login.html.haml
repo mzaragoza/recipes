@@ -1,0 +1,31 @@
+!!!
+/[if lt IE 7] <html class="lt-ie9 lt-ie8 lt-ie7" lang="en">
+/[if IE 7] <html class="lt-ie9 lt-ie8" lang="en">
+/[if IE 8] <html class="lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    / Viewport Metatag
+    %meta{:content => "width=device-width,initial-scale=1.0", :name => "viewport"}/
+    / Required Stylesheets
+    = stylesheet_link_tag 'user_login', :media => "all"
+    %title Go Trucker Go - Login Page
+  %body
+    .container
+      - unless flash[:notice].blank?
+        #notice
+          %h3= flash[:notice]
+        %br
+      - unless flash[:error].blank?
+        #error
+          %h3= flash[:error]
+        %br
+      - unless flash[:alert].blank?
+        #alert
+          %h3= flash[:alert]
+        %br
+    = yield
+    = javascript_include_tag "user_login"
+    = render '/shared/uservoise'

@@ -1,0 +1,116 @@
+- content_for :pagetitle do 
+  Broker
+  = broker.name.titleize
+.mws-panel.grid_12
+  .mws-panel-header
+    = link_to 'Edit', edit_users_broker_path(broker), :class => 'btn btn-info pull-right'
+    %span
+      Broker -
+      = broker.name.titleize
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      %li
+        %span.key
+          = t(:name)
+        %span.val
+          %span.text-nowrap= broker.name.titleize
+      %li
+        %span.key
+          = t(:carreir_packet_pdf)
+        %span.val
+          %span.text-nowrap
+            - unless broker.carreir_packet_pdf.blank?
+              = link_to t(:carrier_pack), broker.carreir_packet_pdf_url, :target => '_blanl'
+            - else
+              %span{:style => 'color:#F00'}= t(:carrier_pack)
+      %li
+        %span.key
+          = t(:phone)
+        %span.val
+          %span.text-nowrap= number_to_phone(broker.phone)
+      %li
+        %span.key
+          = t(:fax)
+        %span.val
+          %span.text-nowrap= number_to_phone(broker.fax)
+      %li
+        %span.key
+          = t(:email)
+        %span.val
+          %span.text-nowrap= mail_to broker.email
+      %li
+        %span.key
+          = t(:address)
+        %span.val
+          %span.text-nowrap
+            - address = broker.address + ' ' + broker.address2 + ' ' + broker.city  + ' ' + broker.state  + ' ' + broker.zip
+            = address
+            = link_to 'https://maps.google.com/maps?q='+ address  +'&t=m&z=17', :target => '_blank' do
+              %i.icol32-map2
+      %li
+        %span.key
+          = t(:website)
+        %span.val
+          %span.text-nowrap
+            - if broker.website.include?('http')
+              = link_to broker.website, broker.website , :target => '_blank'
+            - else
+              = link_to broker.website, 'http://' + broker.website , :target => '_blank'
+      %li
+        %span.key
+          = t(:motor_carrier_number)
+        %span.val
+          %span.text-nowrap= broker.motor_carrier_number
+      %li
+        %span.key
+          = t(:emergency_number)
+        %span.val
+          %span.text-nowrap= number_to_phone(broker.emergency_number)
+      %li
+        %span.key
+          = t(:contact_name)
+        %span.val
+          %span.text-nowrap= broker.contact_name.titleize
+      %li
+        %span.key
+          = t(:contact_extention)
+        %span.val
+          %span.text-nowrap= broker.contact_extention
+
+%a{:name => "notes"}
+.mws-panel.grid_12
+  .mws-panel-header
+    %span
+      Notes
+  .mws-panel-body.no-padding
+    %ul.mws-summary.clearfix
+      - Comment.where(:commenter_type => 'broker').where(:commenter_id => broker.id).order('id DESC').each do |c|
+        %li
+          %span.key
+            - if c.user.photo_url
+              = image_tag c.user.photo.thumb, :alt => c.user.full_name, :width => 25
+            - else
+              = image_tag '/assets/example/profile.jpg', :alt => c.user.full_name, :width => 25
+            = c.user.name.titleize
+          %span.val
+            %span.text-nowrap
+              =raw c.note
+
+              .pull-right= c.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%D %r')
+        .clear
+.clear
+.row-fluid
+.mws-panel.grid_12
+  .mws-panel-header
+    %span Add Notes
+  .mws-panel-body
+    = form_for comment, :url => comments_path(:commenter_type => "broker", :commenter_id => broker.id) do |f|
+      .mws-form-row
+        %label.mws-form-label
+          Note
+        .mws-form-item
+          = f.text_area :note, :class => 'cleditor'
+        %br
+        = f.button :submit, :class => 'btn btn-info'
+        %br
+        %br

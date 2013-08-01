@@ -1,0 +1,138 @@
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %title 
+      = current_account.name.titleize
+      Invoice#
+      = invoice.invoice_number
+
+    = stylesheet_link_tag 'invoice', :media => "all"
+    = javascript_include_tag "invoice"
+    %link{:href => "http://www.opensource.org/licenses/mit-license/", :rel => "license"}/
+  %body
+    %header
+      %h1 
+        = current_account.name.titleize
+        Invoice
+      %address
+        %p= current_account.name.titleize
+        %p
+          = current_account.address
+          = ' ' + current_account.address2 if current_account.address2
+          %br
+          = current_account.city 
+          = current_account.state
+          = current_account.zip
+        %p= number_to_phone(current_account.phone)
+      %span
+        - if current_account.photo?
+          = image_tag current_account.photo, :alt => current_account.name.titleize, :class => 'pull-right'
+        - else
+          = current_account.name.upcase
+    %article
+      %h1 Recipient
+      %address
+        %p
+          = invoice.broker_name.titleize
+          %br
+          = invoice.broker_address.titleize
+          - if invoice.broker_address2.blank?
+            %br
+            = invoice.broker_address2.titleize
+          %br
+          = invoice.broker_city.titleize
+          = invoice.broker_state.titleize
+          = invoice.broker_zip.titleize
+      %table.meta
+        %tr
+          %th
+            %span Invoice #
+          %td
+            %span= invoice.invoice_number.titleize
+        %tr
+          %th
+            %span Date
+          %td
+            %span= invoice.created_at.strftime('%D')
+        %tr
+          %th
+            %span Amount Due
+          %td
+            %span= number_to_currency(invoice.total)
+      %table.inventory
+        %thead
+          %tr
+            %th
+              %span Item
+            %th
+              %span Description
+            %th
+              %span Quantity
+            %th
+              %span Price
+        %tbody
+          %tr
+            %td
+              %span Line Haul
+            %td
+              %span
+            %td
+              %span
+            %td
+              %span= number_to_currency(invoice.price)
+          - if invoice.lumper_fee
+            %tr
+              %td
+                %span Lumper Fee
+              %td
+                %span 
+              %td
+                %span
+              %td
+                %span= number_to_currency(invoice.lumper_fee)
+          - if invoice.detention_fee
+            %tr
+              %td
+                %span Detention Fee
+              %td
+                %span 
+              %td
+                %span
+              %td
+                %span= number_to_currency(invoice.detention_fee)
+          - if invoice.unloading_fee
+            %tr
+              %td
+                %span Unloading Fee
+              %td
+                %span 
+              %td
+                %span
+              %td
+                %span= number_to_currency(invoice.unloading_fee)
+          - if invoice.reconsignment_fee
+            %tr
+              %td
+                %span Reconsignment Fee
+              %td
+                %span
+              %td
+                %span
+              %td
+                %span= number_to_currency(invoice.reconsignment_fee)
+      %table.balance
+        %tr
+          %th
+            %span Total
+          %td
+            %span= number_to_currency(invoice.total)
+        %tr
+          %th
+            %span Balance Due
+          %td
+            %span= number_to_currency(invoice.total)
+    -#%aside
+      %h1
+        %span Additional Notes
+      %div
+        %p A finance charge of 1.5% will be made on unpaid balances after 30 days.

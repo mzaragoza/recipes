@@ -1,0 +1,59 @@
+- content_for :pagetitle do 
+  Brokers
+.grid_8
+  = link_to t(:add_broker), new_users_broker_path, :class => 'btn btn-info pull-right'
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Brokers
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th= t(:name)
+          %th= t(:phone)
+          %th= t(:fax)
+          %th= t(:email)
+          %th= t(:website)
+          %th= t(:motor_carrier_number)
+          %th= t(:carrier_packet)
+          %th
+      %tbody
+        - brokers.each do |b|
+          %tr
+            %td= link_to t(:show), users_broker_path(b), :class => 'btn btn-small btn-info'
+            %td= link_to b.name.titleize, users_broker_path(b)
+            %td= number_to_phone(b.phone)
+            %td= number_to_phone(b.fax)
+            %td= mail_to b.email
+            %td
+              - if b.website.include?('http')
+                = link_to b.website, b.website , :target => '_blank'
+              - else
+                = link_to b.website, 'http://' + b.website , :target => '_blank'
+
+            %td= b.motor_carrier_number
+            %td
+              - unless b.carreir_packet_pdf.blank?
+                = link_to t(:carrier_pack), b.carreir_packet_pdf_url, :target => '_blank'
+              - else
+                %span{:style => 'color:#F00'}= t(:carrier_packet)
+            %td= link_to 'Edit', edit_users_broker_path(b), :class => 'btn btn-small btn-info'
+-#  %h2 Import Brokers
+  To import brokers create a csv file with the following columns:
+  %ul
+    %li name
+    %li phone
+    %li address
+    %li address2
+    %li city
+    %li state
+    %li zip
+    %li fax
+    %li email
+    %li website
+    %li motor_carrier_number
+  = form_tag import_users_brokers_path, multipart: true do
+    = file_field_tag :file
+    = submit_tag "Import"

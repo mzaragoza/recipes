@@ -1,0 +1,89 @@
+!!!
+/[if lt IE 7 ] <html class="lt-ie9 lt-ie8 lt-ie7 ie6" lang="en">
+/[if IE 7 ] <html class="lt-ie9 lt-ie8 ie7" lang="en">
+/[if IE 8 ] <html class="lt-ie9 ie8" lang="en">
+/[if IE 9 ] <html class="ie9" lang="en">
+/ [if (gt IE 9)|!(IE)]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    / @font-face Fonts
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600", :rel => "stylesheet"}/
+    / Stylesheets
+    = stylesheet_link_tag 'application', :media => "all"
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    %title 
+      = yield :pagetitle
+      | Go Trucker Go
+  %body
+    / Main Content Wrap (1024px wide by default)
+    .main-wrap
+      / Header
+      %header.header
+        .container
+          .sixteen.columns
+            .header-row
+              .header-col.brand
+                = link_to root_path, :class => 'logo' do
+                  = image_tag 'logo.png'
+                %span.tagline All your trucking needs at the palm of your hand
+              %nav.header-col.navigation
+                %ul
+                  %li{:class => "#{'active' if params[:controller] == 'pages' and params[:action] == 'index' }"}
+                    = link_to t(:home), root_path
+                  %li{:class => "#{'active' if params[:controller] == 'pages' and params[:action] == 'prices' }"}
+                    = link_to t(:prices), prices_path
+                  %li{:class => "#{'active' if params[:controller] == 'leads' and params[:action] == 'new' }"}
+                    = link_to t(:contact_us), contact_us_path
+                  %li{:class => "#{'active' if params[:controller] == 'pages' and params[:action] == 'prices' }"}
+                    = link_to t(:login), users_dashboard_path
+                  %li
+                    = render '/shared/evoice'
+      / End Header
+      .content
+        - unless flash[:notice].blank?
+          .alert.alert-info
+            %h3= flash[:notice]
+        - unless flash[:error].blank?
+          #error
+            %h3= flash[:error]
+        - unless flash[:alert].blank?
+          #alert
+            %h3= flash[:alert]
+      = yield
+      / Footer
+      %footer.footer
+        / Footer Top
+        -#.footer-top
+          .container
+            / Text
+            .column
+              .footer-logo
+                = image_tag 'logo_white.png'
+              %p= t(:about_us_text)
+        / Footer Bottom
+        .footer-bottom
+          .container
+            .eight.columns
+              Copyright 2013.
+              = succeed "." do
+                = link_to t(:go_trucker_go), root_path
+              All Rights Reserved.
+              = render '/shared/evoice'
+            .eight.columns
+              %ul.footer-nav
+                %li
+                  = link_to t(:home), root_path
+                %li
+                  = link_to t(:prices), prices_path
+                -#%li
+                  = link_to t(:about_us), about_us_path
+                %li
+                  = link_to t(:contact_us), contact_us_path
+    = javascript_include_tag "application"
+    = render '/shared/uservoise'

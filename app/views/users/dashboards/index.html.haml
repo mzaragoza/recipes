@@ -1,0 +1,76 @@
+- content_for :pagetitle do 
+  Dashboard
+
+.mws-panel.grid_4
+  .mws-panel-header
+    %span
+      Current Loads
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th= t(:truck)
+          %th= t(:trailer)
+          %th= t(:driver)
+          %th= t(:status)
+          %th= t(:load_number)
+          %th= t(:broker)
+          %th= t(:pickup)
+          %th= t(:delivery)
+      %tbody
+        - trucks.each do |t|
+          %tr
+            %td= link_to t.name, users_truck_path(t)
+            %td
+              = link_to t.trailer.name, users_trailer_path(t.trailer) if t.trailer
+            %td
+              = link_to t.driver.full_name, users_driver_path(t.driver) if t.driver
+            %td
+              = t.current_shipment.status.titleize if t.current_shipment
+            %td
+              = link_to t.current_shipment.load_number, users_shipment_path(t.current_shipment.id) if t.current_shipment
+            %td
+              = link_to t.current_shipment.broker.name, users_broker_path(t.current_shipment.broker) if t.current_shipment && t.current_shipment.broker
+            %td
+              = t.current_shipment.pick_up_location_city if t.current_shipment
+              = t.current_shipment.pick_up_location_state if t.current_shipment
+              = t.current_shipment.pick_up_date.to_time.strftime('%D') if t.current_shipment
+              = t.current_shipment.pick_up_appointment if t.current_shipment
+            %td
+              = t.current_shipment.delivery_location_city if t.current_shipment
+              = t.current_shipment.delivery_location_state if t.current_shipment
+              = t.current_shipment.deliver_date.to_time.strftime('%D') if t.current_shipment
+              = t.current_shipment.delivery_appointment if t.current_shipment
+.mws-panel.grid_4
+  .mws-panel-header
+    %span
+      Drivers
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th=t(:driver)
+          %th=t(:truck)
+          %th=t(:trailer)
+          %th=t(:cell)
+          %th=t(:endorsements)
+      %tbody
+        - drivers.each do |d|
+          %tr
+            %td= link_to d.full_name, users_driver_path(d)
+            %td
+              = link_to d.truck.name, users_truck_path(d.truck) if d.truck
+            %td
+              = link_to d.truck.trailer.name, users_trailer_path(d.truck.trailer) if d.truck and d.truck.trailer
+            %td= number_to_phone(d.cell)
+            %td
+              - if d.double_triple_trailers
+                .badge.badge-success= t(:double_triple_trailers)
+              - if d.passenger
+                .badge.badge-success= t(:passenger)
+              - if d.tank_vehicle
+                .badge.badge-success= t(:tank_vehicle)
+              - if d.hazardous_materials
+                .badge.badge-success= t(:hazardous_materials)
+              - if d.combination_of_tank_vehicle_and_hazardous_materials
+                .badge.badge-success= t(:combination_of_tank_vehicle_and_hazardous_materials)

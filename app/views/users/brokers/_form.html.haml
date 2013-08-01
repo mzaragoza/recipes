@@ -1,0 +1,65 @@
+= simple_form_for([:users, broker], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:name)
+    .mws-form-item
+    = f.input :name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:phone)
+    .mws-form-item
+    = f.input :phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:fax)
+    .mws-form-item
+    = f.input :fax, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:email)
+    .mws-form-item
+    = f.input :email, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address)
+    .mws-form-item
+    = f.input :address, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:address2)
+    .mws-form-item
+    = f.input :address2, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:city)
+    .mws-form-item
+    = f.input :city, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:zip)
+    .mws-form-item
+    = f.input :zip, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:website)
+    .mws-form-item
+    = f.input :website, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:motor_carrier_number)
+    .mws-form-item
+    = f.input :motor_carrier_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:emergency_number)
+    .mws-form-item
+    = f.input :emergency_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:contact_name)
+    .mws-form-item
+    = f.input :contact_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:contact_extention)
+    .mws-form-item
+    = f.input :contact_extention, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:carrier_packet_pdf)
+    .mws-form-item
+    = f.input :carreir_packet_pdf, :label => false
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

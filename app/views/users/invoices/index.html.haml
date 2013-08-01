@@ -1,0 +1,35 @@
+- content_for :pagetitle do 
+  Invoices
+.mws-panel.grid_8
+  .mws-panel-header
+    %span
+      Invoices
+  .mws-panel-body.no-padding
+    %table.mws-datatable-fn.mws-table
+      %thead
+        %tr
+          %th
+          %th=t(:invoice_number)
+          %th=t(:broker)
+          %th=t(:price)
+          %th=t(:pick_up_date)
+          %th=t(:paid_status)
+          %th=t(:paid_date)
+          %th=t(:created_at)
+          %th
+      %tbody
+        - invoices.each do |i|
+          %tr
+            %td= link_to t(:show), users_invoice_path(i), :class => 'btn btn-small btn-info'
+            %td= link_to i.invoice_number.upcase, users_invoice_path(i)
+            %td
+              = i.broker.name if i.broker
+            %td= number_to_currency(i.total)
+            %td= i.pick_up_date
+            %td= i.paid_status
+            %td= i.paid_date
+            %td= i.created_at
+            %td
+              = link_to 'PDF', users_invoices_pdf_path(i), :class => 'btn btn-small btn-info'
+              = link_to 'Edit', edit_users_invoice_path(i), :class => 'btn btn-small btn-info'
+

@@ -1,0 +1,41 @@
+= simple_form_for([:users, user], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:first_name)
+    .mws-form-item
+    = f.input :first_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:last_name)
+    .mws-form-item
+    = f.input :last_name, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:phone)
+    .mws-form-item
+    = f.input :phone, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:email)
+    .mws-form-item
+    = f.input :email, :label => false
+  -unless current_user.id == params[:id].to_i
+    .mws-form-row
+      %label.mws-form-label= t(:is_owner)
+      .mws-form-item
+      = f.input :is_owner, :label => false
+    .mws-form-row
+      %label.mws-form-label= t(:active)
+      .mws-form-item
+      = f.input :active, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:photo)
+    .mws-form-item
+    = f.input :photo, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:password)
+    .mws-form-item
+    = f.input :password, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:password_confirmation)
+    .mws-form-item
+    = f.input :password_confirmation, :label => false
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'

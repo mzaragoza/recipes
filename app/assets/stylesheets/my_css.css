@@ -1,0 +1,72 @@
+table a {color:#000000;}
+table a:hover {
+  color:#000000;
+  font-weight:bold;
+}
+
+#admin_email{ width:90% !important; }
+#admin_password{ width:90% !important; }
+
+#notice {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #bee5f7;
+    text-align: center;
+    line-height: 1.5;
+    overflow: hidden; 
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+#error {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #feb9bb;
+    text-align: center;
+    line-height: 1.5;
+    overflow: hidden; 
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+#alert {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fcefb7;
+    text-align: center;
+    line-height: 1.5;
+    overflow: hidden; 
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+
+.pull-right{
+  float: right;
+}
+.row-fluid [class*="span"]:nth-child(3n+1) {
+   margin-left: 0;
+ }
+
+#mws-logo-container #mws-logo-wrap{
+  width: 380px;
+}
+#mws-logo-container{
+  width: 380px;
+
+}
+input[type=checkbox] {
+  margin-right:20px;
+}
+.input{
+
+}

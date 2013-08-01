@@ -1,0 +1,42 @@
+= simple_form_for([:users, receipt], :html => {:class => 'form-horizontal' }) do |f|
+  .mws-form-row
+    %label.mws-form-label= t(:truck)
+    .mws-form-item
+    = f.association :truck, collection: current_account.trucks.all(order: 'name'), prompt: "Choose a Truck", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:driver)
+    .mws-form-item
+    = f.association :driver, collection: current_account.drivers.all(order: 'first_name'), prompt: "Choose a Driver", :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:receipt_date)
+    .mws-form-item
+    = f.input :receipt_date, :label => false, :input_html => { :class => 'datepicker'}
+  .mws-form-row
+    %label.mws-form-label= t(:gallons)
+    .mws-form-item
+    = f.input :fill_up_gallons, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:state)
+    .mws-form-item
+    = f.input :state, :collection => us_states,  :as => :select, include_blank: true, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:cost)
+    .mws-form-item
+    = f.input :cost, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:odometer)
+    .mws-form-item
+    = f.input :odometer, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:credit_card_number)
+    .mws-form-item
+    = f.input :credit_card_number, :label => false
+  .mws-form-row
+    %label.mws-form-label= t(:receipt_pdf)
+    .mws-form-item
+    = f.input :receipt_pdf, :label => false
+
+  .mws-form-row
+    .mws-form-item
+    = f.button :submit, :class => 'pull-right btn btn-info'
+

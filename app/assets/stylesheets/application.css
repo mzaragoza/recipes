@@ -1,0 +1,18 @@
+/*
+  *= require css/normalize
+  *= require css/skeleton
+  *= require css/typography
+  *= require css/layout
+  *= require css/form
+  *= require css/shortcodes
+  *= require css/elements
+  *= require css/ie
+  *= require icons/glyphicons/style
+  *= require icons/zocial/zocial
+  *= require icons/social/social
+  *= require plugins/layerslider/css/layerslider
+  *= require plugins/flexslider/flexslider
+  *= require plugins/magnificpopup/jquery.magnific-popup
+  *= require my_css
+  *= require_self
+ */
