@@ -284,7 +284,7 @@ GEM
     ruby-hmac (0.4.0)
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
-    rubyzip (0.9.9)
+    rubyzip (1.2.4)
     rufus-scheduler (2.0.21)
       tzinfo (>= 0.3.23)
     sass (3.2.9)
